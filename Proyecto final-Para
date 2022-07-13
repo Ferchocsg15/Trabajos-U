@@ -1,0 +1,54 @@
+/*Proyecto con sentencia repetitiva For*/
+
+#include <stdio.h>
+int main (void)
+{
+    int horas, minutos, dinero, veces;
+    float valorfinal, cambio;
+    char resp;
+    printf("Es domingo?(s/n)\n");
+    scanf("%c", &resp);
+    printf("Cuantos tickets desea pagar?\n");
+    scanf("%d", &veces);
+    for(int i=0; i<veces; i++)
+    {
+        printf("\n\tTicket %d\n", i+1);
+        printf("\nCuantas horas estuvo estacionado?\n");
+        scanf("%d", &horas);
+        printf("Cuantos minutos estuvo estacionado?\n");
+        scanf("%d", &minutos);
+        if (horas == 0 && minutos <= 10)//costo hasta 10 minutos
+        {
+            valorfinal=0;
+            printf("El valor a pagar es: %.1f$\n", valorfinal);
+        }
+        if (horas == 0 && minutos >= 10 && minutos <= 25)//costo entre 10-25 minutos
+        {
+            valorfinal=3;
+            printf("El valor a pagar es: %.1f$\n", valorfinal);
+        }
+        if (horas == 1 || minutos == 60)
+        {
+            valorfinal = 10;
+            printf ("El valor a pagar es: %.1f$\n", valorfinal);
+        }
+        if (horas > 1 && minutos > 1 && (minutos%60)!=0)//conversion minutos sobrantes a horas
+        {
+            horas = horas + (minutos/60)+1;
+        }
+        valorfinal = 10 + 5*(horas-1);//Valor final
+        if (resp == 'n' || resp == 'N')//Costo completo
+        {
+            printf("El valor a pagar del Ticket %d es %.1f$\n", i, valorfinal);
+        }
+        else
+        {
+            valorfinal = valorfinal - (valorfinal*0.1);
+            printf("El valor a pagar del Ticket %d con descuento de domingo es: %.1f$\n", i+1, valorfinal);
+        }
+        printf("\n\tCon cuanto va a pagar?\n");
+        scanf("%d", &dinero);
+        cambio = dinero - valorfinal;
+        printf("\n\tSu cambio es: %.1f\n", cambio);
+    }
+}
